@@ -1,0 +1,35 @@
+.iowa-header-bar {
+  background-color: #ffcd00;
+  font-family: 'Georgia', 'Times New Roman', serif;
+  height: 50px; /* thinner bar */
+  position: relative;
+  z-index: 1;
+}
+
+.iowa-logo-svg {
+  height: 45px; /* Shrinks the IOWA font inside */
+  width: auto;
+  background-color: #000;
+  padding: 0.5rem 1.2rem; /* more room around the text */
+  margin-top: -0.2rem; /* slight overlap */
+  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 0.1rem;
+}
+
+
+.header-title {
+  color: #1a1a1a;
+  font-weight: normal;
+  font-size: 1.2rem; /* smaller text */
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  border: 0;
+}

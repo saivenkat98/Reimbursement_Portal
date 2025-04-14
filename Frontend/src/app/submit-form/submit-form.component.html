@@ -1,0 +1,76 @@
+<div style="display: flex; gap: 3rem; align-items: flex-start; font-family: 'Georgia', 'Times New Roman', serif; background-color: #fff; padding: 2rem; max-width: 1100px; margin: 3rem auto; border: 1px solid #dcdcdc; box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);">
+  <!-- Left Column - Form -->
+  <div style="flex: 2;">
+    <h2 class="title">Reimbursement Submission</h2>
+    <form [formGroup]="reimbursementForm" (ngSubmit)="onSubmit(fileInput)" enctype="multipart/form-data" class="form-box">
+      <!-- Title -->
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" formControlName="Title" id="title" class="form-control" />
+        <div *ngIf="reimbursementForm.get('Title')?.touched && reimbursementForm.get('Title')?.invalid">
+          <small class="text-danger" *ngIf="reimbursementForm.get('Title')?.errors?.['required']">Title is required</small>
+          <small class="text-danger" *ngIf="reimbursementForm.get('Title')?.errors?.['minlength']">Must be at least 5 characters</small>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="form-group">
+        <label for="description">Description</label>
+        <textarea formControlName="Description" id="description" class="form-control"></textarea>
+        <div *ngIf="reimbursementForm.get('Description')?.touched && reimbursementForm.get('Description')?.invalid">
+          <small class="text-danger" *ngIf="reimbursementForm.get('Description')?.errors?.['required']">Description is required</small>
+          <small class="text-danger" *ngIf="reimbursementForm.get('Description')?.errors?.['minlength']">Must be at least 50 characters</small>
+        </div>
+      </div>
+
+      <!-- Amount -->
+      <div class="form-group">
+        <label for="amount">Amount ($)</label>
+        <input type="number" formControlName="Amount" id="amount" class="form-control" />
+        <div *ngIf="reimbursementForm.get('Amount')?.touched && reimbursementForm.get('Amount')?.invalid">
+          <small class="text-danger" *ngIf="reimbursementForm.get('Amount')?.errors?.['required']">Amount is required</small>
+          <small class="text-danger" *ngIf="reimbursementForm.get('Amount')?.errors?.['min']">Amount must be greater than 0</small>
+        </div>
+      </div>
+
+      <!-- Date -->
+      <div class="form-group">
+        <label for="date">Date of Purchase</label>
+        <input type="date" formControlName="Date" id="date" class="form-control" />
+        <div *ngIf="reimbursementForm.get('Date')?.touched && reimbursementForm.get('Date')?.invalid">
+          <small class="text-danger" *ngIf="reimbursementForm.get('Date')?.errors?.['required']">Date is required</small>
+          <small class="text-danger" *ngIf="reimbursementForm.get('Date')?.errors?.['futureDate']">Date must be in the past</small>
+        </div>
+      </div>
+
+      <!-- Receipt Upload -->
+      <div class="form-group">
+        <label for="receipt">Upload Receipt</label>
+        <input type="file" (change)="handleFileChange($event)" id="receipt" class="form-control" #fileInput />
+        <div *ngIf="!fileToUpload && reimbursementForm.touched">
+          <small class="text-danger">Receipt is required</small>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn" [disabled]="!reimbursementForm.valid || !fileToUpload">
+        Submit
+      </button>
+      <div *ngIf="successMessage" class="success">{{ successMessage }}</div>
+      <div *ngIf="errorMessage" class="error">{{ errorMessage }}</div>
+    </form>
+  </div>
+
+  <!-- Right Column - Help Panel -->
+  <div style="flex: 1; border-left: 1px solid #ddd; padding-left: 1.5rem;">
+    <h3 style="font-weight: bold; font-size: 1.2rem;">Need Help?</h3>
+    <p style="line-height: 1.6;">
+      If you have questions about submitting your receipt, please contact your department administrator or email
+      <a href="mailto:support&#64;uiowa.edu">support&#64;uiowa.edu</a> for assistance.
+    </p>
+
+    <h3 style="font-weight: bold; font-size: 1.2rem; margin-top: 2rem;">Policy Reminder</h3>
+    <p style="line-height: 1.6;">
+      Ensure your receipt clearly shows the vendor, date, amount, and purpose of the transaction. All reimbursements must comply with university guidelines.
+    </p>
+  </div>
+</div>
