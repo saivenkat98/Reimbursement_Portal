@@ -46,8 +46,15 @@
       <!-- Receipt Upload -->
       <div class="form-group">
         <label for="receipt">Upload Receipt</label>
-        <input type="file" (change)="handleFileChange($event)" id="receipt" class="form-control" #fileInput />
-        <div *ngIf="!fileToUpload && reimbursementForm.touched">
+        <input
+        type="file"
+        accept=".pdf, .png, .jpg, .jpeg"
+        (change)="handleFileChange($event)"
+        id="receipt"
+        class="form-control"
+        #fileInput
+      />
+              <div *ngIf="!fileToUpload && reimbursementForm.touched">
           <small class="text-danger">Receipt is required</small>
         </div>
       </div>

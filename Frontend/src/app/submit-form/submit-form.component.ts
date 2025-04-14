@@ -32,9 +32,20 @@ export class SubmitFormComponent {
   handleFileChange(event: Event) {
     const input = event.target as HTMLInputElement;
     if (input.files && input.files.length > 0) {
-      this.fileToUpload = input.files[0];
+      const file = input.files[0];
+      const maxSizeInBytes = 5 * 1024 * 1024; // 5MB
+  
+      if (file.size > maxSizeInBytes) {
+        this.errorMessage = 'File size must be less than 5 MB.';
+        this.fileToUpload = null;
+        input.value = ''; // Clear the file input visually
+      } else {
+        this.errorMessage = ''; // Clear previous error
+        this.fileToUpload = file;
+      }
     }
   }
+  
 
   onSubmit(fileInput: HTMLInputElement) {
     if (this.reimbursementForm.valid && this.fileToUpload) {
